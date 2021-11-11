@@ -1,21 +1,36 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-
-export default function App() {
+import React, {useState} from 'react';
+import {SafeAreaView, StyleSheet, View, FlatList} from 'react-native';
+import Header from './src/components/Header';
+import AddItem, {IItem} from './src/components/AddItem';
+import Item from './src/components/Item';
+const App = () => {
+  const [shoppingList, setShoppingList] = useState<IItem[]>([]);
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaView style={styles.container}>
+      <Header title="Shopping List" />
+      <View style={styles.contentWrapper}>
+        <AddItem
+          setShoppingList={setShoppingList}
+          shoppingList={shoppingList}
+        />
+        <FlatList
+          data={shoppingList}
+          keyExtractor={(item, index) => `${item.item}-${index}`}
+          renderItem={({item}) => (
+            <Item item={item.item} quantity={item.quantity} />
+          )}
+        />
+      </View>
+    </SafeAreaView>
   );
-}
-
+};
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: '#e8e7e3',
+  },
+  contentWrapper: {
+    padding: 20,
   },
 });
+export default App;
