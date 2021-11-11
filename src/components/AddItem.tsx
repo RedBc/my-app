@@ -8,29 +8,31 @@ import {
   Alert,
 } from 'react-native';
 export interface IItem {
-  item: string;
-  quantity: string;
+  label: string;
+  image: string;
 }
 interface Props {
   setShoppingList: React.Dispatch<React.SetStateAction<IItem[]>>;
   shoppingList: IItem[];
 }
 const AddItem: React.FC<Props> = ({shoppingList, setShoppingList}) => {
-  const [item, setItem] = useState('');
-  const [quantity, setQuantity] = useState('');
+  const [label, setLabel] = useState('');
+  const [image, setImage] = useState('');
   const addItem = () => {
-    if (!item) {
+    if (!label) {
       Alert.alert('No Item!', 'You need to enter an item');
     } else {
+
+        setImage('https://images.unsplash.com/photo-1526045612212-70caf35c14df')
       setShoppingList([
         ...shoppingList,
         {
-          item,
-          quantity: quantity || '1',
+          label,
+          image,
         },
       ]);
-      setItem('');
-      setQuantity('');
+      setLabel('');
+      setImage('');
     }
   };
   return (
@@ -40,18 +42,10 @@ const AddItem: React.FC<Props> = ({shoppingList, setShoppingList}) => {
         <TextInput
           style={styles.input}
           placeholder="Enter item"
-          value={item}
-          onChangeText={text => setItem(text)}
+          value={label}
+          onChangeText={text => setLabel(text)}
         />
-        <TextInput
-          style={styles.input}
-          placeholder="Enter quantity"
-          keyboardType="numeric"
-          value={quantity}
-          onChangeText={q => {
-            setQuantity(q);
-          }}
-        />
+        
         <TouchableOpacity style={styles.addItemButton} onPress={addItem}>
           <Text style={styles.buttonText}>Add Item</Text>
         </TouchableOpacity>

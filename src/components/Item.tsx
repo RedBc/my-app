@@ -1,18 +1,27 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Image} from 'react-native';
 import {IItem} from './AddItem';
-const Item: React.FC<IItem> = ({item, quantity}) => {
+
+const imageUrl = "https://images.unsplash.com/photo-1526045612212-70caf35c14df";
+
+
+const Item: React.FC<IItem> = ({label, image}) => {
+
+     let Image_Http_URL ={ uri: 'https://reactnativecode.com/wp-content/uploads/2017/05/react_thumb_install.png'};
   return (
     <View style={styles.item}>
-      <Text style={styles.itemName}>{item}</Text>
-      <Text style={styles.quantity}>x{quantity}</Text>
+      <Text style={styles.itemName}>{label}</Text>
+      <Image source={Image_Http_URL}  style={styles.image} />
+
+
+      
     </View>
   );
 };
 const styles = StyleSheet.create({
   item: {
     padding: 20,
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'center',
     borderBottomWidth: 1,
@@ -29,5 +38,12 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     backgroundColor: 'rgba(0, 0, 0, 0.05)',
   },
+  image:
+  {
+
+    height: 400,
+    flex: 1,
+    width: 400
+  }
 });
 export default Item;

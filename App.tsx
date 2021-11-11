@@ -15,9 +15,9 @@ const App = () => {
         />
         <FlatList
           data={shoppingList}
-          keyExtractor={(item, index) => `${item.item}-${index}`}
+          keyExtractor={(item, index) => `${item.label}-${index}`}
           renderItem={({item}) => (
-            <Item item={item.item} quantity={item.quantity} />
+            <Item label={item.label} image={item.image} />
           )}
         />
       </View>
