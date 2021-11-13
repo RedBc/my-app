@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState} from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
 import {IItem} from './AddItem';
 
@@ -6,8 +6,17 @@ const imageUrl = "https://images.unsplash.com/photo-1526045612212-70caf35c14df";
 
 
 const Item: React.FC<IItem> = ({label, image}) => {
+  const [imageApi, setImageApi] = useState('');
 
-     let Image_Http_URL ={ uri: 'https://reactnativecode.com/wp-content/uploads/2017/05/react_thumb_install.png'};
+  useEffect(() => {
+    fetch('https://coffee.alexflipnote.dev/random.json')
+      .then((response) => response.json())
+      .then((json) => setImageApi(json.file))
+      .catch((error) => console.error(error))
+      .finally(() => console.log("finished call"));
+  }, []);
+
+     let Image_Http_URL ={ uri:imageApi};
   return (
     <View style={styles.item}>
       <Text style={styles.itemName}>{label}</Text>
