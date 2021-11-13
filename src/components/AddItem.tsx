@@ -4,28 +4,24 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  StyleSheet,
-  Alert,
+  StyleSheet
 } from 'react-native';
 export interface IItem {
   label: string;
   image: string;
 }
 interface Props {
-  setShoppingList: React.Dispatch<React.SetStateAction<IItem[]>>;
-  shoppingList: IItem[];
+  setImageList: React.Dispatch<React.SetStateAction<IItem[]>>;
+  imageList: IItem[];
 }
-const AddItem: React.FC<Props> = ({shoppingList, setShoppingList}) => {
+const AddItem: React.FC<Props> = ({imageList, setImageList}) => {
   const [label, setLabel] = useState('');
   const [image, setImage] = useState('');
   const addItem = () => {
-    if (!label) {
-      Alert.alert('No Item!', 'You need to enter an item');
-    } else {
+    
 
-        setImage('https://images.unsplash.com/photo-1526045612212-70caf35c14df')
-      setShoppingList([
-        ...shoppingList,
+        setImageList([
+        ...imageList,
         {
           label,
           image,
@@ -33,21 +29,19 @@ const AddItem: React.FC<Props> = ({shoppingList, setShoppingList}) => {
       ]);
       setLabel('');
       setImage('');
-    }
+    
   };
   return (
     <View>
-      <Text style={styles.heading}>Add Shopping Item</Text>
       <View style={styles.form}>
         <TextInput
           style={styles.input}
-          placeholder="Enter item"
+          placeholder="Quoi de neuf ?"
           value={label}
           onChangeText={text => setLabel(text)}
         />
-        
         <TouchableOpacity style={styles.addItemButton} onPress={addItem}>
-          <Text style={styles.buttonText}>Add Item</Text>
+          <Text style={styles.buttonText}>Publier</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -64,16 +58,27 @@ const styles = StyleSheet.create({
   input: {
     padding: 15,
     borderColor: 'rgba(0, 0, 0, 0.2)',
+    backgroundColor: '#fafafa',
     borderWidth: 1,
     borderRadius: 5,
     marginBottom: 20,
   },
   addItemButton: {
-    backgroundColor: '#eb8634',
-    paddingVertical: 20,
-    borderRadius: 5,
+    backgroundColor: '#ffed4e',
+    paddingVertical: 10,
+    paddingHorizontal: 50,
+    borderRadius: 8,
+    width:60,
+    height:40,
+    alignSelf: 'flex-end',  
     alignItems: 'center',
   },
-  buttonText: {color: '#fff', fontWeight: '500'},
+  buttonText: {
+   color: 'white',
+   textAlign:'center',
+   width: 50,
+   height: 50,
+
+  fontWeight: 'bold'},
 });
 export default AddItem;
